@@ -1,0 +1,14 @@
+---
+
+- import_tasks: init.yml
+  become: true
+  when: hostvars[inventory_hostname].account_service is defined
+  tags: init
+
+- import_tasks: run.yml
+  when: hostvars[inventory_hostname].account_service is defined
+  tags: run
+
+- import_tasks: stop.yml
+  when: hostvars[inventory_hostname].account_service is defined
+  tags: stop

@@ -1,0 +1,11 @@
+- name: 创建配置目录
+  file:
+    path: /opt/{{ project_name }}/redis/
+    state: directory
+    mode: 0755
+
+- name: 模板生成配置文件
+  template:
+    src: cluster.conf.j2
+    dest: /opt/{{ project_name }}/redis/cluster.conf
+    mode: 0644

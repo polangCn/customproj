@@ -1,0 +1,17 @@
+server:
+  port: 8101
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: gateway-service
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        register-enabled: true
+        server-addr: {{ nacos_servers.split() | join(',') }}
+    config:
+        server-addr: {{ nacos_servers.split() | join(',') }}

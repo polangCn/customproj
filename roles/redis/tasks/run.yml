@@ -1,0 +1,9 @@
+- name: 运行容器
+  docker_container:
+    name: "{{ project_name }}-redis-{{ item.index }}"
+    image: "{{ redis_image }}"
+    network_mode: host
+    command: redis-server /usr/local/etc/redis/cluster.conf --cluster-announce-ip {{ hostvars[inventory_hostname].ansible_host }} --port {{ item.port }}
+    volumes:
+      - /opt/{{ project_name }}/redis/:/usr/local/etc/redis/
+  with_items: "{{ hostvars[inventory_hostname].redis }}"

@@ -1,0 +1,17 @@
+spring:
+  profiles:
+    active: {{ spring_profile }}
+dubbo:
+  #provider:
+  #  timeout: 10000
+  scan:
+    base-packages: com.jx.card.query.service
+  protocol:
+    name: dubbo
+    port: 8205
+  registry:
+    address: {{ nacos_servers.split() | map('regex_replace', '^(.*)$', 'spring-cloud://\\1') | list | join(';') }}
+  application:
+  #qos-enable: true
+  cloud:
+    subscribed-services: query-service

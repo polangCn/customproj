@@ -1,0 +1,13 @@
+bind 0.0.0.0
+
+# 启用cluster
+cluster-enabled yes
+# 指定cluster config 档案
+cluster-config-file nodes.conf
+# 指定node 无法连线时间
+cluster-node-timeout 5000
+
+#设置主服务的连接密码
+masterauth {{ redis_password }}
+#设置从服务的连接密码
+requirepass {{ redis_password }}

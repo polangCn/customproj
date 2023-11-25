@@ -1,0 +1,11 @@
+- name: 运行容器
+  docker_container:
+    name: "{{ project_name }}-nacos-{{ item.index }}"
+    image: "{{ nacos_image }}"
+    network_mode: host
+    env:
+      NACOS_APPLICATION_PORT: "{{ item.port|quote }}"
+    env_file: /opt/{{ project_name }}/nacos/cluster.env
+    volumes:
+      - /opt/{{ project_name }}/nacos/custom.properties:/home/nacos/init.d/custom.properties
+  with_items: "{{ hostvars[inventory_hostname].nacos }}"

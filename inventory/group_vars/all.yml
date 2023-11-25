@@ -1,0 +1,12 @@
+---
+project_name: card
+
+redis_image: "redis:6.0.13-alpine"
+nacos_image: "nacos/nacos-server:1.4.2"
+rocketmq_namesvr_image: "rocketmqinc/rocketmq-namesrv:4.5.0-alpine"
+rocketmq_broker_image: "rocketmqinc/rocketmq-broker:4.5.0-alpine"
+nginx_image: "nginx:1.20.1-alpine"
+
+card_jdk_image: "card-jdk-server:8u212"
+
+ansible_python_interpreter: "/usr/bin/env python3"

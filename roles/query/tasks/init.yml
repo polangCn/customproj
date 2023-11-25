@@ -1,0 +1,22 @@
+- name: 创建配置目录
+  file:
+    path: /opt/{{ project_name }}/{{ service_name }}/
+    state: directory
+    mode: 0755
+
+- name: 模板生成配置文件
+  template:
+    src: "{{ item.s_name }}"
+    dest: /opt/{{ project_name }}/{{ service_name }}/{{ item.d_name }}
+    mode: 0644
+  with_items:
+    - { s_name: "bootstrap.yml.j2", d_name: "bootstrap.yml" }
+    - { s_name: "application.yml.j2", d_name: "application.yml" }
+    - { s_name: "application-prod.yml.j2", d_name: "application-prod.yml" }
+    - { s_name: "application-dev.yml.j2", d_name: "application-dev.yml" }
+
+- name: 获取最新的 service 包
+  get_url:
+    url: "{{ download_url }}{{ service_name }}.jar"
+    dest: /opt/{{ project_name }}/{{ service_name }}/service.jar
+    mode: 0644

@@ -1,0 +1,6 @@
+- name: 停止集群
+  docker_container:
+    name: "{{ project_name }}-redis-{{ item.index }}"
+    state: absent
+    force_kill: yes
+  with_items: "{{ hostvars[inventory_hostname].redis }}"

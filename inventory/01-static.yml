@@ -1,0 +1,92 @@
+all:
+  children:
+    develop:
+      hosts:
+        lucker:
+          ansible_host: 192.168.3.5
+          nginx:
+          gateway_service:
+          auth_service:
+          get_service:
+          use_service:
+          query_service:
+          console_service:
+          account_service:
+        drone:
+          ansible_host: 192.168.3.4
+          redis:
+            - { index: 0, port: 7000 }
+            - { index: 1, port: 7001 }
+            - { index: 2, port: 7002 }
+            - { index: 3, port: 7003 }
+            - { index: 4, port: 7004 }
+            - { index: 5, port: 7005 }
+          redis_create_cluster:
+          rocketmq:
+          nacos:
+            - { index: 0, port: 8847 }
+            - { index: 1, port: 8848 }
+            - { index: 2, port: 8849 }
+    temporary:
+      hosts:
+        lucker:
+          ansible_host: 192.168.3.5
+          nginx:
+          gateway_service:
+          auth_service:
+          get_service:
+          use_service:
+          query_service:
+          console_service:
+          account_service:
+        ultralisk:
+          ansible_host: 192.168.3.3
+          redis:
+            - { index: 0, port: 7000 }
+            - { index: 1, port: 7001 }
+            - { index: 2, port: 7002 }
+            - { index: 3, port: 7003 }
+            - { index: 4, port: 7004 }
+            - { index: 5, port: 7005 }
+          redis_create_cluster:
+          rocketmq:
+          nacos:
+            - { index: 0, port: 8847 }
+            - { index: 1, port: 8848 }
+            - { index: 2, port: 8849 }
+          get_service:
+          query_service:
+    product:
+      hosts:
+        s207:
+          ansible_host: 10.114.92.207
+          nginx:
+          gateway_service:
+          auth_service:
+          query_service:
+          console_service:
+          account_service:
+        s208:
+          ansible_host: 10.114.92.208
+          get_service:
+          use_service:
+        s211:
+          ansible_host: 10.114.92.211
+          redis:
+            - { index: 0, port: 7000 }
+            - { index: 1, port: 7001 }
+            - { index: 2, port: 7002 }
+          redis_create_cluster:
+          nacos:
+            - { index: 0, port: 8848 }
+          rocketmq:
+        s213:
+          ansible_host: 10.114.92.213
+          redis:
+            - { index: 0, port: 7000 }
+            - { index: 1, port: 7001 }
+            - { index: 2, port: 7002 }
+          nacos:
+            - { index: 0, port: 8848 }
+            - { index: 1, port: 8849 }
+          rocketmq:

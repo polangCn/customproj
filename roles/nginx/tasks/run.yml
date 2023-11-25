@@ -1,0 +1,12 @@
+- name: 运行容器
+  docker_container:
+    name: "{{ project_name }}-{{ service_name }}"
+    image: "{{ nginx_image }}"
+    ports:
+      - 8000:80
+    volumes:
+      - /opt/{{ project_name }}/{{ service_name }}/nginx.conf:/etc/nginx/nginx.conf
+      - /opt/{{ project_name }}/{{ service_name }}/conf.d/:/etc/nginx/conf.d/
+      - /opt/{{ project_name }}/{{ service_name }}/data/:/var/lib/www/
+    env:
+      NGINX_ENTRYPOINT_QUIET_LOGS: "1"

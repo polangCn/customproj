@@ -1,0 +1,15 @@
+server:
+  port: 8106
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: account-service
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        register-enabled: true
+        server-addr: {{ nacos_servers.split() | join(',') }}

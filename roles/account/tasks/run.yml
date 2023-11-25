@@ -1,0 +1,10 @@
+- name: 运行容器
+  docker_container:
+    name: "{{ project_name }}-service-{{ service_name }}"
+    image: "{{ card_jdk_image }}"
+    network_mode: host
+    env:
+      JAVA_OPT_EXT: "{{ java_opt_ext }}"
+    volumes:
+      - /opt/{{ project_name }}/{{ service_name }}:/app
+      - /opt/{{ project_name }}/{{ service_name }}/data:/opt/{{ project_name }}/{{ service_name }}/data

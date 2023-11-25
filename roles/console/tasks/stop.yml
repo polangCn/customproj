@@ -1,0 +1,5 @@
+- name: 停止服务
+  docker_container:
+    name: "{{ project_name }}-service-{{ service_name }}"
+    state: absent
+    force_kill: yes

@@ -1,0 +1,17 @@
+- name: 运行 namesvr 容器
+  docker_container:
+    name: "{{ project_name }}-rocketmq-namesvr"
+    image: "{{ rocketmq_namesvr_image }}"
+    network_mode: host
+
+- name: 运行 broker 容器
+  docker_container:
+    name: "{{ project_name }}-rocketmq-broker"
+    image: "{{ rocketmq_broker_image }}"
+    network_mode: host
+    env:
+      NAMESRV_ADDR: "{{ rocketmq_name_servers }}"
+      JAVA_OPT_EXT: "-Xms256m -Xmx256m -Xmn128m"
+    volumes:
+      - /opt/{{ project_name }}/{{ service_name }}/broker.conf:/root/rocketmq-4.5.0/conf/broker.conf
+    command: sh mqbroker -c /root/rocketmq-4.5.0/conf/broker.conf

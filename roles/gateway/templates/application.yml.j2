@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: gateway-service
+  #redis 配置
+  redis:
+    database: 1
+    cluster:
+      max-redirects: 3
+      nodes: {{ redis_cluster_servers.split() | join(',') }}
+    jedis:
+      pool:
+        max-active: 8   #最大连接数据库连接数,设 0 为没有限制
+        max-idle: 8     #最大等待连接中的数量,设 0 为没有限制
+        max-wait: -1s  #最大建立连接等待时间。如果超过此时间将接到异常。设为-1表示无限制。
+        min-idle: 0     #最小等待连接中的数量,设 0 为没有限制
+      #shutdown-timeout: 100ms
+    password: "{{ redis_password }}"
+    
+dubbo:
+  consumer:
+    #5000
+    timeout: 20000 
+    retries: 0
+  protocol:
+    name: dubbo
+    port: 8201
+  registry:
+    address: {{ nacos_servers.split() | map('regex_replace', '^(.*)$', 'spring-cloud://\\1') | list | join(';') }}
+  #cloud:
+  #  subscribed-services: system-service
+  application:
+    qos-enable: false

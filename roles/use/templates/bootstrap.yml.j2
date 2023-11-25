@@ -1,0 +1,13 @@
+server:
+  port: 8104
+spring:
+  application:
+    name: use-service
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        register-enabled: true
+        server-addr: {{ nacos_servers.split() | join(',') }}

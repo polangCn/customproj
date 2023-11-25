@@ -1,0 +1,14 @@
+- name: 创建配置目录
+  file:
+    path: /opt/{{ project_name }}/nacos/
+    state: directory
+    mode: 0755
+
+- name: 模板生成配置文件
+  template:
+    src: "{{ item.s_name }}"
+    dest: /opt/{{ project_name }}/nacos/{{ item.d_name }}
+    mode: 0644
+  with_items:
+    - { s_name: "cluster.env.j2", d_name: "cluster.env" }
+    - { s_name: "custom.properties.j2", d_name: "custom.properties" }

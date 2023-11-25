@@ -1,0 +1,57 @@
+upstream console_interface {
+    least_conn;
+    {{ console_interface_servers.split() | map('regex_replace', '^(.*)$', 'server \\1;') | list | join('\n    ') }}
+}
+
+upstream outward_interface {
+    least_conn;
+    {{ outward_interface_servers.split() | map('regex_replace', '^(.*)$', 'server \\1;') | list | join('\n    ') }}
+}
+
+upstream account_download {
+    least_conn;
+    {{ account_download_servers.split() | map('regex_replace', '^(.*)$', 'server \\1;') | list | join('\n    ') }}
+}
+
+server {
+    listen       80;
+    server_name  localhost;
+
+    # 对外接口地址
+    location ^~ /cardcenter/outward/ {
+        proxy_pass          http://outward_interface/cardcenter/outward/;
+        proxy_set_header    Host $http_host;
+        proxy_set_header    X-Real-IP $remote_addr;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_redirect      off;
+    }
+
+    # 对外出账下载地址
+    location ^~ /cardcenter/account/ {
+        proxy_pass          http://account_download/;
+        proxy_set_header    Host $http_host;
+        proxy_set_header    X-Real-IP $remote_addr;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_redirect      off;
+    }
+
+    # 管理后台接口
+    location ^~ /cardcenter/adminSystem/ {
+        proxy_pass          http://console_interface/adminSystem/;
+        proxy_set_header    Host $host;
+        proxy_set_header    X-Real-IP $remote_addr;
+        proxy_set_header    X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_redirect      off;
+        
+        proxy_http_version  1.1;
+        proxy_set_header    Upgrade $http_upgrade;
+        proxy_set_header    Connection "upgrade";
+    }
+
+    # 管理后台前端
+    location ^~ /cardcenter/web/ {
+        root /var/lib/www/;
+        index index.html index.htm;
+        try_files $uri $uri/ /cardcenter/web/index.html;
+    }
+}

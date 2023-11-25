@@ -1,0 +1,11 @@
+- name: 停止 namsvr 服务
+  docker_container:
+    name: "{{ project_name }}-rocketmq-namesvr"
+    state: absent
+    force_kill: yes
+
+- name: 停止 broker 服务
+  docker_container:
+    name: "{{ project_name }}-rocketmq-broker"
+    state: absent
+    force_kill: yes

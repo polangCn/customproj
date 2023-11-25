@@ -1,0 +1,27 @@
+- name: 创建配置目录
+  file:
+    path: /opt/{{ project_name }}/{{ service_name }}/conf.d/
+    state: directory
+    mode: 0755
+
+- name: 模板生成配置文件
+  template:
+    src: "{{ item.s_name }}"
+    dest: /opt/{{ project_name }}/{{ service_name }}/{{ item.d_name }}
+    mode: 0644
+  with_items:
+    - { s_name: "nginx.conf.j2", d_name: "nginx.conf" }
+    - { s_name: "default.conf.j2", d_name: "conf.d/default.conf" }
+
+- name: 创建页面内容目录
+  file:
+    path: /opt/{{ project_name }}/{{ service_name }}/data/cardcenter/web/
+    state: directory
+    mode: 0777
+
+- name: 获取最新的 service 包
+  ansible.builtin.unarchive:
+    src: "{{ download_url }}console-frontend.zip"
+    dest: /opt/{{ project_name }}/{{ service_name }}/data/cardcenter/web
+    mode: 0777
+    remote_src: yes

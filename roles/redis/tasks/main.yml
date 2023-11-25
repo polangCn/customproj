@@ -1,0 +1,21 @@
+---
+- import_tasks: init.yml
+  become: true
+  when: hostvars[inventory_hostname].redis is defined
+  tags: init
+
+- import_tasks: run.yml
+  when: hostvars[inventory_hostname].redis is defined
+  tags: run
+
+- import_tasks: create_cluster.yml
+  when: hostvars[inventory_hostname].redis_create_cluster is defined
+  tags: run
+
+- import_tasks: stop.yml
+  when: hostvars[inventory_hostname].redis is defined
+  tags: stop
+
+- import_tasks: flush.yml
+  when: hostvars[inventory_hostname].redis is defined
+  tags: flush

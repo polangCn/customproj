@@ -1,0 +1,11 @@
+---
+
+- name: 运行 console 容器
+  docker_container:
+    name: "{{ project_name }}-rocketmq-console"
+    image: styletang/rocketmq-console-ng
+    ports:
+      - 9993:8080
+    env:
+      JAVA_OPTS: "-Drocketmq.config.namesrvAddr={{ hostvars[inventory_hostname].ansible_host }}:9876 -Drocketmq.config.isVIPChannel=false -Xms256m -Xmx256m -Xmn128m"
+

@@ -1,0 +1,18 @@
+---
+
+- import_tasks: init.yml
+  become: true
+  when: hostvars[inventory_hostname].rocketmq is defined
+  tags: init
+
+- import_tasks: run.yml
+  when: hostvars[inventory_hostname].rocketmq is defined
+  tags: run
+
+- import_tasks: stop.yml
+  when: hostvars[inventory_hostname].rocketmq is defined
+  tags: stop
+
+- import_tasks: console.yml
+  when: hostvars[inventory_hostname].rocketmq is defined
+  tags: console

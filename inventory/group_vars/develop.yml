@@ -1,0 +1,41 @@
+# spring 配置文件
+spring_profile: dev
+
+# 部署时 service 包下载地址
+download_url: http://122.112.243.6/download/card/
+
+# 卡券对外接口暴露地址
+outward_interface_url: http://122.112.243.6:8004/cardcenter/outward/
+
+outward_interface_servers: 192.168.3.5:8101
+console_interface_servers: 192.168.3.5:8111
+account_download_servers: 192.168.3.5:8106
+
+# mysql 主从数据库配置
+mysql_db_name: card_test
+mysql_master_host: 192.168.3.4
+mysql_master_port: 3306
+mysql_master_user: root
+mysql_master_password: 123qweasdzxc
+mysql_slave_host: 192.168.3.4
+mysql_slave_port: 3306
+mysql_slave_user: root
+mysql_slave_password: 123qweasdzxc
+
+# redis 集群配置
+redis_cluster_servers: 192.168.3.4:7000 192.168.3.4:7001 192.168.3.4:7002 192.168.3.4:7003 192.168.3.4:7004 192.168.3.4:7005
+redis_password: pass.123
+
+# nacos 配置
+nacos_servers: 192.168.3.5:8847 192.168.3.5:8848 192.168.3.5:8849
+nacos_db_name: nacos
+
+# rocketmq 名字服务器，多个使用分号间隔
+rocketmq_name_servers: 192.168.3.4:9876
+
+# JAVA 运行时参数
+jvm_xms: 256m
+jvm_xmx: 256m
+jvm_xmn: 128m
+
+java_opt_ext: -Xms{{ jvm_xms }} -Xmx{{ jvm_xmx }} -Xmn{{ jvm_xmn }}

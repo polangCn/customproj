@@ -1,0 +1,8 @@
+brokerClusterName={{ project_name }}_cluster
+brokerName={{ project_name }}_broker_{{ hostvars[inventory_hostname].ansible_host }}
+brokerId=0
+deleteWhen=04
+fileReservedTime=48
+brokerRole=ASYNC_MASTER
+flushDiskType=ASYNC_FLUSH
+brokerIP1={{ hostvars[inventory_hostname].ansible_host }}

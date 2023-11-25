@@ -1,0 +1,3 @@
+- name: 清空记录
+  shell: docker exec -it {{ project_name }}-redis-{{ item.index }} redis-cli -c -p {{ item.port }} -a {{ redis_password }} flushall
+  with_items: "{{ hostvars[inventory_hostname].redis }}"
